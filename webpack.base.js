@@ -14,6 +14,10 @@ module.exports = {
         test: /\.s[ac]ss$/,
         use: ['style-loader', 'css-loader', 'sass-loader'],
       },
+      {
+        test: /.\pug$/,
+        use: ['pug-loader'],
+      },
     ],
   },
   resolve: {
@@ -26,19 +30,19 @@ module.exports = {
   // https://webpack.js.org/concepts/plugins/
   plugins: [
     new HtmlWebpackPlugin({
-      template: './public/index.html',
+      template: './src/pages/index.pug',
       inject: true,
       chunks: ['index'],
       filename: 'index.html',
     }),
     new HtmlWebpackPlugin({
-      template: './public/about.html',
+      template: './src/pages/about.pug',
       inject: true,
       chunks: ['about'],
       filename: 'about.html',
     }),
     new HtmlWebpackPlugin({
-      template: './public/contacts.html',
+      template: './src/pages/contacts.pug',
       inject: true,
       chunks: ['contacts'],
       filename: 'contacts.html',
