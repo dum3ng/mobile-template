@@ -9,7 +9,21 @@ html(lang="en")
       .red {
         color: red;
       }
+      .rem {
+        width: 375rem;
+      }
+      body {
+        font-size: 32rem;
+      }
+    script.
+      function changeREM() {
+        const windowWidth = window.screen.width
+        document.documentElement.style.fontSize = `${windowWidth/750}px`
+      }
+      window.addEventListener('resize', changeREM)
+      changeREM()
   body
     h1.page-title hmepage
     .px-2.py-4.border.text-blue test-tailwind
+    .rem.mx-auto.bg-orange-400 test-rem
     include views/nav.pug
