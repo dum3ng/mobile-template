@@ -1,11 +1,13 @@
 const path = require('path')
 const util = require('util')
+const glob = require('glob')
 const merge = require('webpack-merge')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const PurgecssPlugin = require('purgecss-webpack-plugin')
 const baseConfig = require('./webpack.base')
 
 const buildPath = path.resolve(__dirname, 'dist')
@@ -17,6 +19,7 @@ baseConfig
   .use(CleanWebpackPlugin, [{}])
   .before('html-index')
 
+// remove the `style-loader` to use minicssextractplugin in production
 baseConfig.module
   .rule('scss')
   .uses.delete('style')
@@ -29,6 +32,13 @@ baseConfig.plugin('minicss').use(MiniCssExtractPlugin, [
   {
     filename: '[name].[contenthash].css',
     chunkFilename: '[id].[contenthash].css',
+  },
+])
+
+const srcPath = path.resolve(__dirname, 'src')
+baseConfig.plugin('purgecss').use(PurgecssPlugin, [
+  {
+    paths: glob.sync(`${srcPath}/**/*`, { nodir: true }),
   },
 ])
 
@@ -55,4 +65,4 @@ module.exports = baseConfig.toConfig()
 //     filename: 'js/[name]-[hash].js',
 //   },
 // })
-console.log(util.inspect(baseConfig.toConfig(), { depth: null }))
+// console.log(util.inspect(baseConfig.toConfig(), { depth: null }))

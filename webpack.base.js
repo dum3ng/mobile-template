@@ -16,6 +16,13 @@ config.module
   .use('css')
   .loader('css-loader')
   .end()
+  .use('postcss')
+  .loader('postcss-loader')
+  .options({
+    ident: 'postcss',
+    plugins: [require('tailwindcss'), require('autoprefixer')],
+  })
+  .end()
   .use('sass')
   .loader('sass-loader')
   .end()
