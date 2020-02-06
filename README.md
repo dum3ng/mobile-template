@@ -38,3 +38,6 @@ See: [purgecss extractors](https://purgecss.com/extractors.html#default-extracto
 - webpack.base.js
 - webpack.dev.js
 - webpack.production.js
+
+
+[inspires](https://www.ivarprudnikov.com/static-website-multiple-html-pages-using-webpack-plus-github-example/)
